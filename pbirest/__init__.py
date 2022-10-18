@@ -18,6 +18,15 @@ from .core import export_report
 from .core import import_report
 from .core import clone_report
 
+from .core import get_page
+from .core import get_pages
+
+from .core import get_visuals
+
+from .core import get_dashboards
+
+from .core import get_tiles
+
 from .core import get_dataset
 from .core import get_datasets
 from .core import delete_dataset

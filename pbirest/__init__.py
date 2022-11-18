@@ -33,3 +33,7 @@ from .core import delete_dataset
 from .core import refresh_dataset
 
 from .core import get_audit_logs
+
+from .core import get_capacities
+from .core import capacity_assignment_status
+from .core import assign_to_capacity

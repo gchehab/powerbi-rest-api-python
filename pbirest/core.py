@@ -486,4 +486,56 @@ def get_tiles(workspace_id: str = None, dashboard_id:str = None) -> list:
         return response.json()["value"]
     else:
         log.error("Error {} -- Something went wrong when trying to retrieve the list of tiles in dashboard {} in the workspace {}".format(response.status_code, dashboard_id, workspace_id))
-        return None        
+        return None      
+
+# Capacities
+def get_capacities() -> list:
+    global token
+    if(not verify_token()): return None
+
+    headers = { "Authorization": token["bearer"] }
+    response = requests.get("https://api.powerbi.com/v1.0/myorg/capacities", headers = headers)
+
+    if response.status_code == HTTP_OK:
+        return response.json()["value"]
+    else:
+        log.error("Error {} -- Something went wrong when trying to retrieve the list of capacities".format(response.status_code))
+        return None      
+
+def capacity_assignment_status(workspace_id: str = None ) -> dict:
+    global token
+    if(not verify_token()): return None
+
+    headers = { "Authorization": token["bearer"] }
+    if workspace_id is not None:
+        response = requests.get("https://api.powerbi.com/v1.0/myorg/groups/{}/CapacityAssignmentStatus".format(workspace_id), headers = headers)
+    else:
+        log.error("Error -- must specify a workspace id to get capacity status")
+        return None
+    
+    if response.status_code == HTTP_OK:
+        return response.json()["value"]
+    else:
+        log.error("Error {} -- Something went wrong when trying to get capacity status of workspace {}".format(response.status_code, workspace_id))
+        return None  
+
+def assign_to_capacity(workspace_id: str = None, capacity_id: str = '00000000-0000-0000-0000-000000000000') -> dict:
+    global token
+    if(not verify_token()): return None
+
+    headers = { "Authorization": token["bearer"] }
+    if workspace_id is not None:
+        response = requests.post(
+            "https://api.powerbi.com/v1.0/myorg/groups/{}/AssignToCapacity".format(workspace_id), 
+            headers = headers, 
+            json = {'capacityId': capacity_id}
+        )
+    else:
+        log.error("Error -- must specify a workspace id to assign capacity ")
+        return None
+    
+    if response.status_code == HTTP_OK:
+        return response.json()["value"]
+    else:
+        log.error("Error {} -- Something went wrong when trying to assign capacity {} to workspace {}".format(response.status_code, capacity_id, workspace_id))
+        return None  

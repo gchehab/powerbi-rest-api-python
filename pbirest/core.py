@@ -488,6 +488,20 @@ def get_tiles(workspace_id: str = None, dashboard_id:str = None) -> list:
         log.error("Error {} -- Something went wrong when trying to retrieve the list of tiles in dashboard {} in the workspace {}".format(response.status_code, dashboard_id, workspace_id))
         return None      
 
+# Features
+def available_features() -> list:
+    global token
+    if(not verify_token()): return None
+
+    headers = { "Authorization": token["bearer"] }
+    response = requests.get("https://api.powerbi.com/v1.0/myorg/availableFeatures", headers = headers)
+
+    if response.status_code == HTTP_OK:
+        return response.json()
+    else:
+        log.error("Error {} -- Something went wrong when trying to retrieve the available features".format(response.status_code))
+        return None      
+
 # Capacities
 def get_capacities() -> list:
     global token

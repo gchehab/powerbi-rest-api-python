@@ -1,6 +1,7 @@
 from .core import connect
 from .core import verify_token
 from .core import get_token
+from .core import available_features
 
 from .core import get_workspace
 from .core import get_workspaces

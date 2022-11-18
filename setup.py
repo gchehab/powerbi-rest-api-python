@@ -3,7 +3,7 @@ import setuptools
 setuptools.setup(
     name = "pbirest",
     packages = setuptools.find_packages(),
-    version = "0.0.6",
+    version = "0.0.7",
     license = "MIT",
     description = "A Python library created to easily use the Power BI REST API with Python",
     long_description = "A Python library created to easily use the Power BI REST API with Python",

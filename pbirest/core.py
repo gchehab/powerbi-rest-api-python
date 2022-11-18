@@ -514,7 +514,7 @@ def capacity_assignment_status(workspace_id: str = None ) -> dict:
         return None
     
     if response.status_code == HTTP_OK:
-        return response.json()["value"]
+        return response.json()
     else:
         log.error("Error {} -- Something went wrong when trying to get capacity status of workspace {}".format(response.status_code, workspace_id))
         return None  
@@ -535,7 +535,7 @@ def assign_to_capacity(workspace_id: str = None, capacity_id: str = '00000000-00
         return None
     
     if response.status_code == HTTP_OK:
-        return response.json()["value"]
+        return response.json()
     else:
         log.error("Error {} -- Something went wrong when trying to assign capacity {} to workspace {}".format(response.status_code, capacity_id, workspace_id))
         return None  
